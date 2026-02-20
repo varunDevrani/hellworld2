@@ -8,7 +8,7 @@ from src.database.connect_db import get_db
 router = APIRouter(prefix="/users", tags=["users"])
 
 
-@router.get("/users")
+@router.get("/")
 def get_users(
     request: Request,
     response: Response,
@@ -17,7 +17,7 @@ def get_users(
     pass
 
 
-@router.get("/users/{user_id}")
+@router.get("/{user_id}")
 def get_user_by_id(
     request: Request,
     response: Response,
@@ -25,3 +25,4 @@ def get_user_by_id(
     db: Session = Depends(get_db),
 ):
     pass
+    
