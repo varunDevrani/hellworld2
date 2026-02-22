@@ -1,9 +1,11 @@
 from pydantic import BaseModel
 from datetime import datetime
 from typing import Union, List
+from uuid import UUID
 
 
-class ActivityResponse(BaseModel):
+class SKillActivityResponse(BaseModel):
+    id: UUID
     date: datetime
     name: str
     is_completed: bool
@@ -13,16 +15,17 @@ class ActivityResponse(BaseModel):
 
 
 class SkillResponse(BaseModel):
+    id: UUID
     name: str
-    activties: Union[List[ActivityResponse], None] = None
+    activties: Union[List[SKillActivityResponse], None] = None
 
 
 class SkillCreateRequest(BaseModel):
     name: str
-    activties: Union[List[ActivityResponse], None] = None
+    activties: Union[List[SKillActivityResponse], None] = None
     
 
 class SkillUpdateRequest(BaseModel):
     name: Union[str, None] = None
-    activties: Union[List[ActivityResponse], None] = None
+    activties: Union[List[SKillActivityResponse], None] = None
 

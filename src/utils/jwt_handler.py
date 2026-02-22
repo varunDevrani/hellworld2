@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from enum import Enum
 from uuid import UUID
 from datetime import datetime, timezone, timedelta
-from typing import Tuple, Dict, Any
+from typing import Tuple, Union
 
 from src.core.config import (
     JWT_SECRET_KEY,
@@ -58,11 +58,11 @@ def create_token(
     
 def decode_token(
     token: str
-) -> Dict[str, Any]:
+) -> Union[JWTPayload, None]:
     
     try:
         payload = jwt.decode(token, JWT_SECRET_KEY, [ALGORITHM])
-        return payload
-    except jwt.PyJWTError:
-        raise ValueError("Invalid token")
+        return JWTPayload(**payload)
+    except jwt.PyJWTError as exception:
+        return None
 

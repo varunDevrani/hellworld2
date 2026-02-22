@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from uuid import UUID
 
 from src.database.connect_db import get_db
-from src.schemas.settings import GeneralSettingsUpdateRequest, NotificationSettingsUpdateRequest
+from src.schemas.setting import GeneralSettingsUpdateRequest, NotificationSettingsUpdateRequest
 from src.utils.get_current_user import get_current_user
 
 
@@ -41,7 +41,7 @@ def get_settings_notifications(
     pass
     
     
-@router.patch("notifications")
+@router.patch("/notifications")
 def update_settings_notifications(
     request: Request,
     response: Response,

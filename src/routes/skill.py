@@ -3,9 +3,9 @@ from sqlalchemy.orm import Session
 from uuid import UUID
 
 from src.database.connect_db import get_db
-from src.schemas.skills import SkillCreateRequest, SkillUpdateRequest
+from src.schemas.skill import SkillCreateRequest, SkillUpdateRequest
 from src.utils.get_current_user import get_current_user
-
+import src.controllers.skill as controllers
 
 router = APIRouter(
     prefix="/skills",
@@ -20,7 +20,12 @@ def get_skills(
     db: Session = Depends(get_db),
     user_id: UUID = Depends(get_current_user)
 ):
-    pass
+    return controllers.get_skills(
+        request,
+        response,
+        db,
+        user_id
+	)
 
 
 @router.get("/{skill_id}")
