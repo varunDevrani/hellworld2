@@ -28,28 +28,17 @@ def get_skills(
 	)
 
 
-@router.get("/{skill_id}")
-def get_skills_by_id(
+@router.post("/")
+def create_skill(
     request: Request,
     response: Response,
-    skill_id: UUID,
+    payload: SkillCreateRequest,
     db: Session = Depends(get_db),
     user_id: UUID = Depends(get_current_user)
 ):
     pass
     
-
-@router.get("/{activity_id}")
-def get_skill_activity_by_id(
-    request: Request,
-    response: Response,
-    activity_id: UUID,
-    db: Session = Depends(get_db),
-    user_id: UUID = Depends(get_current_user)
-):
-    pass
-    
-    
+  
 @router.delete("/{skill_id}")
 def delete_skill_by_id(
     request: Request,
@@ -61,8 +50,33 @@ def delete_skill_by_id(
     pass
 
 
-@router.delete("/{activity_id}")
-def delete_skill_activity_by_id(
+@router.put("/{skill_id}")
+@router.patch("/{skill_id}")
+def update_skill_by_id(
+    request: Request,
+    response: Response,
+    payload: SkillUpdateRequest,
+    db: Session = Depends(get_db),
+    user_id: UUID = Depends(get_current_user)
+):
+    pass
+
+
+
+@router.get("/{skill_id}")
+@router.get("/{skill_id}/activties")
+def get_skill_activites_by_id(
+    request: Request,
+    response: Response,
+    skill_id: UUID,
+    db: Session = Depends(get_db),
+    user_id: UUID = Depends(get_current_user)
+):
+    pass
+
+
+@router.get("/{skill_id}/activities/{activity_id}")
+def get_skill_activity_by_id(
     request: Request,
     response: Response,
     activity_id: UUID,
@@ -70,25 +84,13 @@ def delete_skill_activity_by_id(
     user_id: UUID = Depends(get_current_user)
 ):
     pass
-
-
-@router.post("/")
-def create_skill(
-    request: Request,
-    response: Response,
-    payload: SkillCreateRequest,
-    db: Session = Depends(get_db),
-    user_id: UUID = Depends(get_current_user)
-):
-    pass
     
 
-@router.put("/{skill_id}")
-@router.patch("/{skill_id}")
-def update_skill_by_id(
+@router.delete("/{skill_id}/activities/{activity_id}")
+def delete_skill_activity_by_id(
     request: Request,
     response: Response,
-    payload: SkillUpdateRequest,
+    activity_id: UUID,
     db: Session = Depends(get_db),
     user_id: UUID = Depends(get_current_user)
 ):
