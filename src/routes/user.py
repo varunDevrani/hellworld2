@@ -8,7 +8,7 @@ from src.database.connect_db import get_db
 router = APIRouter(prefix="/users", tags=["users"])
 
 
-@router.get("/")
+@router.get("")
 def get_users(
     request: Request,
     response: Response,

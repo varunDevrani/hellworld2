@@ -13,7 +13,7 @@ router = APIRouter(
 )
 
 
-@router.get("/")
+@router.get("")
 def get_skills(
     request: Request,
     response: Response,
@@ -28,7 +28,7 @@ def get_skills(
 	)
 
 
-@router.post("/")
+@router.post("")
 def create_skill(
     request: Request,
     response: Response,
