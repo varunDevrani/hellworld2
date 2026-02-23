@@ -4,7 +4,7 @@ from uuid import UUID
 
 from src.database.connect_db import get_db
 from src.schemas.skill import SkillCreateRequest, SkillUpdateRequest
-from src.utils.get_current_user import get_current_user
+from src.dependencies.get_current_user import get_current_user
 import src.controllers.skill as controllers
 
 router = APIRouter(
