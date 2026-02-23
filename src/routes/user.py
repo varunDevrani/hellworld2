@@ -2,7 +2,7 @@ from uuid import UUID
 from fastapi import APIRouter, Request, Response, Depends
 from sqlalchemy.orm import Session
 
-from src.database.connect_db import get_db
+from src.dependencies.database import get_db
 
 
 router = APIRouter(prefix="/users", tags=["users"])

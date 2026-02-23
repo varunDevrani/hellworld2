@@ -10,12 +10,3 @@ sessionLocal = sessionmaker(
     autoflush=False,
     autocommit=False
 )
-
-
-def get_db():
-    db = sessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
