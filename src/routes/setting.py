@@ -1,53 +1,44 @@
 from fastapi import APIRouter, Request, Response, Depends
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from uuid import UUID
 
 from src.dependencies.database import get_db
-from src.schemas.setting import GeneralSettingsUpdateRequest, NotificationSettingsUpdateRequest
+from src.schemas.setting import SettingsUpdateRequest
 from src.dependencies.auth import get_current_user
+import src.controllers.setting as controllers
 
 
 router = APIRouter(prefix="/settings", tags=["settings"])
 
 
-@router.get("/general")
-def get_settings_general(
+@router.get("")
+def get_settings(
     request: Request,
     response: Response,
     db: Session = Depends(get_db),
     user_id: UUID = Depends(get_current_user)
-):
-    pass
+) -> JSONResponse:
+	return controllers.get_settings(
+		request,
+		response,
+		db,
+		user_id
+	)
 
 
-@router.patch("/general")
-def update_settings_general(
+@router.patch("")
+def update_settings(
     request: Request,
     response: Response,
-    payload: GeneralSettingsUpdateRequest,
+    payload: SettingsUpdateRequest,
     db: Session = Depends(get_db),
     user_id: UUID = Depends(get_current_user)
-):
-    pass
-
-
-@router.get("/notifications")
-def get_settings_notifications(
-    request: Request,
-    response: Response,
-    db: Session = Depends(get_db),
-    user_id: UUID = Depends(get_current_user)
-):
-    pass
-    
-    
-@router.patch("/notifications")
-def update_settings_notifications(
-    request: Request,
-    response: Response,
-    payload: NotificationSettingsUpdateRequest,
-    db: Session = Depends(get_db),
-    user_id: UUID = Depends(get_current_user)
-):
-    pass
-
+) -> JSONResponse:
+	return controllers.update_settings(
+		request,
+		response,
+		payload,
+		db,
+		user_id
+	)
