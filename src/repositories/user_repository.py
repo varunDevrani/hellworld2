@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 
 from src.models.user import User
 from src.repositories.interfaces.user_repository import IUserRepository
+from src.schemas.user import UserUpdateRequest
 
 
 class UserRepository(IUserRepository):
@@ -42,4 +43,22 @@ class UserRepository(IUserRepository):
 		self.db.commit()
 		self.db.refresh(user_data)
 
+		return user_data
+		
+	def update_by_id(
+		self,
+		id: UUID,
+		payload: UserUpdateRequest
+	) -> Union[User, None]:
+		
+		user_data = self.find_by_id(id)
+		if not user_data:
+			return None
+		
+		updated_payload = payload.model_dump(exclude_none=True, exclude_unset=True)
+		for key, value in updated_payload.items():
+			setattr(user_data, key, value)
+			
+		self.db.commit()
+		self.db.refresh(user_data)
 		return user_data
