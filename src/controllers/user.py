@@ -64,10 +64,9 @@ def get_user_by_id(
 		return JSONResponse(
 			status_code=404,
 			content={
-				"success": True,
+				"success": False,
 				"content": {
-					"success": False,
-					"code": "NOT_FOUND",
+					"code": "AUTHENTICATION_ERROR",
 					"message": exception.message,
 					"details": {
 						"field": "user_id"
@@ -110,10 +109,9 @@ def update_user_by_id(
 		return JSONResponse(
 			status_code=401,
 			content={
-				"success": True,
+				"success": False,
 				"content": {
-					"success": False,
-					"code": "NOT_FOUND",
+					"code": "AUTHENTICATION_ERROR",
 					"message": exception.message,
 					"details": {
 						"field": "user_id"

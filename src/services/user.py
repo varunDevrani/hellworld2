@@ -32,7 +32,7 @@ def update_user_by_id(
 	payload: UserUpdateRequest,
 	user_id: UUID,
 	user_repo: IUserRepository
-):
+) -> User:
 	
 	if user_id is None:
 		raise AuthenticationError("invalid token")
