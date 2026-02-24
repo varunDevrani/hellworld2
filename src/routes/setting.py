@@ -2,9 +2,9 @@ from fastapi import APIRouter, Request, Response, Depends
 from sqlalchemy.orm import Session
 from uuid import UUID
 
-from src.database.connect_db import get_db
+from src.dependencies.database import get_db
 from src.schemas.setting import GeneralSettingsUpdateRequest, NotificationSettingsUpdateRequest
-from src.utils.get_current_user import get_current_user
+from src.dependencies.auth import get_current_user
 
 
 router = APIRouter(prefix="/settings", tags=["settings"])
