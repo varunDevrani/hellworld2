@@ -14,7 +14,6 @@ class UserResponse(BaseModel):
 
 
 class UserUpdateRequest(BaseModel):
-	email: Union[str, None] = None
 	first_name: Union[str, None] = None
 	last_name: Union[str, None] = None
 	profile_pic_url: Union[str, None] = None
