@@ -1,4 +1,5 @@
-from typing import Union
+from typing import Union, List
+from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -16,6 +17,21 @@ class UserRepository(IUserRepository):
 		user_data = self.db.scalar(stmt)
 		return user_data
 		# return self.db.query(User).filter(User.email == email).first()
+	
+	def find_by_id(
+		self,
+		id: UUID
+	) -> Union[User, None]:
+		stmt = select(User).where(User.id == id)
+		user_data = self.db.scalar(stmt)
+		return user_data
+		
+	def find_all(
+		self
+	) -> List[User]:
+		stmt = select(User)
+		users_data = self.db.scalars(stmt).all()
+		return list(users_data)
 			
 	def create(self, email: str, password_hash: str) -> User:
 		user_data = User(
