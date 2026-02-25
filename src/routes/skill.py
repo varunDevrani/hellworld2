@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Request, Response, Depends
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from uuid import UUID
 
@@ -19,7 +20,7 @@ def get_skills(
     response: Response,
     db: Session = Depends(get_db),
     user_id: UUID = Depends(get_current_user)
-):
+) -> JSONResponse:
     return controllers.get_skills(
         request,
         response,
@@ -35,7 +36,7 @@ def create_skill(
     payload: SkillCreateRequest,
     db: Session = Depends(get_db),
     user_id: UUID = Depends(get_current_user)
-):
+) -> JSONResponse:
     pass
     
   
@@ -46,7 +47,7 @@ def delete_skill_by_id(
     skill_id: UUID,
     db: Session = Depends(get_db),
     user_id: UUID = Depends(get_current_user)
-):
+) -> JSONResponse:
     pass
 
 
@@ -57,7 +58,7 @@ def update_skill_by_id(
     payload: SkillUpdateRequest,
     db: Session = Depends(get_db),
     user_id: UUID = Depends(get_current_user)
-):
+) -> JSONResponse:
     pass
 
 
@@ -69,7 +70,7 @@ def get_skill_by_id(
     skill_id: UUID,
     db: Session = Depends(get_db),
     user_id: UUID = Depends(get_current_user)
-):
+) -> JSONResponse:
     pass
     
 @router.post("/{skill_id}/activities")
@@ -78,7 +79,7 @@ def create_skill_activity(
 	response: Response,
 	db: Session = Depends(get_db),
 	user_id: UUID = Depends(get_current_user)
-):
+) -> JSONResponse:
 	pass
 
 
@@ -89,7 +90,7 @@ def get_skill_activity_by_id(
     activity_id: UUID,
     db: Session = Depends(get_db),
     user_id: UUID = Depends(get_current_user)
-):
+) -> JSONResponse:
     pass
     
 
@@ -100,7 +101,7 @@ def delete_skill_activity_by_id(
     activity_id: UUID,
     db: Session = Depends(get_db),
     user_id: UUID = Depends(get_current_user)
-):
+) -> JSONResponse:
     pass
 
 
@@ -111,6 +112,6 @@ def update_skill_activity_by_id(
 	activity_id: UUID,
 	db: Session = Depends(get_db),
 	user_id: UUID = Depends(get_current_user)
-):
+) -> JSONResponse:
 	pass
 

@@ -9,6 +9,8 @@ from src.routes.setting import router as settings_router
 from src.routes.user import router as users_router
 from src.routes.skill import router as skills_router
 
+from src.exceptions import register_exception_handlers
+
 
 app = FastAPI()
 
@@ -36,6 +38,7 @@ def http_exception_handler(
         }
     )
 
+register_exception_handlers(app)
 
 app.include_router(auth_router, prefix="/api/v1")
 app.include_router(settings_router, prefix="/api/v1")

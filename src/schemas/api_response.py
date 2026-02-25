@@ -1,24 +1,16 @@
-from datetime import datetime
-from uuid import UUID
-from pydantic import BaseModel
 from typing import Union, Dict, Any
-
-class Meta(BaseModel):
-    request_id: UUID
-    timestamp: datetime
+from fastapi.responses import JSONResponse
 
 
-class APIResponse(BaseModel):
-    message: str = "request processed"
-    success: bool
-    status_code: int
-    meta: Union[Meta, None] = None
-
-class SuccessResponse(APIResponse):
-    success: bool = True
-    data: Union[Dict[str, Any], None] = None
-  
-class ErrorResponse(APIResponse):
-    success: bool = False
-    errors: Union[Dict[str, Any], None] = None    
-
+def SuccessResponse(
+	status_code: int,
+	message: str = "Request Successful",
+	data: Union[Dict[str, Any], None] = None
+) -> JSONResponse:
+	return JSONResponse(
+		status_code=status_code,
+		content={
+			"message": message,
+			"data": data
+		}
+	)

@@ -3,7 +3,7 @@ from typing import List, Dict, Any
 
 from src.repositories.interfaces.skill_repository import ISkillRepository
 from src.repositories.interfaces.skill_activity_repository import ISkillActivityRepository
-from src.exceptions import AuthenticationError
+from src.exceptions import DomainException, ErrorCode, ErrorDetail, FieldViolation
 
 def get_skills(
 	user_id: UUID,
@@ -12,7 +12,19 @@ def get_skills(
 ) -> List[Dict[str, Any]]:
 	
 	if user_id is None:
-		raise AuthenticationError("invalid token")
+		raise DomainException(
+			401,
+			ErrorCode.AUTHENTICATION_ERROR,
+			"Invalid Token",
+			ErrorDetail(
+				resource="skills",
+				field_violations=[
+					FieldViolation(
+						field="token[user_id]"
+					)
+				]
+			)
+		)
 
 	result = []
 	skills_data = skill_repo.find_all_by_user_id(user_id)

@@ -1,10 +1,10 @@
 from uuid import UUID
-from typing import Union
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
-from src.schemas.api_response import ErrorResponse
 from src.utils.jwt_handler import JWTToken, decode_token
+from src.exceptions import DomainException, ErrorCode, ErrorDetail
+
 
 
 security = HTTPBearer(auto_error=False)
@@ -12,20 +12,28 @@ security = HTTPBearer(auto_error=False)
 
 def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security)
-) -> Union[UUID, ErrorResponse]:
+) -> UUID:
     
 	if not credentials:
-		raise HTTPException(
-			status_code=status.HTTP_401_UNAUTHORIZED,
-			detail="not authenticated"
+		raise DomainException(
+			401,
+			ErrorCode.AUTHENTICATION_ERROR,
+			"Invalid Credentials",
+			ErrorDetail(
+				resource="users"
+			)
 		)
     
 	token = decode_token(credentials.credentials)
 	
 	if token is None or token.token_type != JWTToken.ACCESS_TOKEN:
-		raise HTTPException(
-			status_code=status.HTTP_401_UNAUTHORIZED,
-			detail="invalid token"
+		raise DomainException(
+			401,
+			ErrorCode.AUTHENTICATION_ERROR,
+			"Invalid Credentials",
+			ErrorDetail(
+				resource="users"
+			)
 		)
 	
 	return UUID(token.user_id)
