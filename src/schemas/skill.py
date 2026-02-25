@@ -32,17 +32,19 @@ class SkillResponse(BaseModel):
     id: UUID
     name: str
     total_activites: int
-    activties: Union[List[SKillActivityResponse], None] = None
+    activities: Union[List[SKillActivityResponse], None] = None
 
 class SkillCreateRequest(BaseModel):
     name: str
-    activties: Union[List[SKillActivityResponse], None] = None
+    activities: Union[List[SkillActivityCreateRequest], None] = None
     
 class SkillUpdateRequest(BaseModel):
     name: Union[str, None] = None
-    activties: Union[List[SKillActivityResponse], None] = None
+    activities: Union[List[SkillActivityUpdateRequest], None] = None
 
 class SkillsResponse(BaseModel):
 	total_skills: int
 	skills: Union[List[SkillResponse], None] = None
 
+
+ 
