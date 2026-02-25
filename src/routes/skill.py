@@ -50,7 +50,6 @@ def delete_skill_by_id(
     pass
 
 
-@router.put("/{skill_id}")
 @router.patch("/{skill_id}")
 def update_skill_by_id(
     request: Request,
@@ -62,10 +61,9 @@ def update_skill_by_id(
     pass
 
 
-
 @router.get("/{skill_id}")
-@router.get("/{skill_id}/activties")
-def get_skill_activites_by_id(
+@router.get("/{skill_id}/activities")
+def get_skill_by_id(
     request: Request,
     response: Response,
     skill_id: UUID,
@@ -73,6 +71,15 @@ def get_skill_activites_by_id(
     user_id: UUID = Depends(get_current_user)
 ):
     pass
+    
+@router.post("/{skill_id}/activities")
+def create_skill_activity(
+	request: Request,
+	response: Response,
+	db: Session = Depends(get_db),
+	user_id: UUID = Depends(get_current_user)
+):
+	pass
 
 
 @router.get("/{skill_id}/activities/{activity_id}")
@@ -95,4 +102,15 @@ def delete_skill_activity_by_id(
     user_id: UUID = Depends(get_current_user)
 ):
     pass
+
+
+@router.patch("/{skill_id}/activities/{activity_id}")
+def update_skill_activity_by_id(
+	request: Request,
+	response: Response,
+	activity_id: UUID,
+	db: Session = Depends(get_db),
+	user_id: UUID = Depends(get_current_user)
+):
+	pass
 
