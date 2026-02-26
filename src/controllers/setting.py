@@ -26,7 +26,6 @@ def get_settings(
 		setting_repo
 	)
 	
-	response.status_code = 200
 	return SuccessResponse(
 		status_code=200,
 		message="Settings[user_id] fetched successfully.",
@@ -52,7 +51,6 @@ def update_settings(
 		setting_repo
 	)
 	
-	response.status_code = 200
 	return SuccessResponse(
 		status_code=200,
 		message="Settings[user_id] updated successfully.",

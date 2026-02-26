@@ -69,7 +69,6 @@ def update_user_by_id(
 		user_repo
 	)
 	
-	response.status_code = 200
 	return JSONResponse(
 		status_code=200,
 		content={

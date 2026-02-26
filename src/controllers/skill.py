@@ -26,7 +26,6 @@ def get_skills(
 		skill_activity_repo
 	)
 
-	response.status_code = 200
 	return SuccessResponse(
 		status_code=200,
 		message="Skills[user_id] fetched successfully.",
