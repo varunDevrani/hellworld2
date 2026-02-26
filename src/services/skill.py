@@ -4,6 +4,7 @@ from typing import List, Dict, Any
 from src.repositories.interfaces.skill_repository import ISkillRepository
 from src.repositories.interfaces.skill_activity_repository import ISkillActivityRepository
 from src.exceptions import DomainException, ErrorCode, ErrorDetail, FieldViolation
+from src.schemas.skill import SkillCreateRequest, SkillUpdateRequest
 
 def get_skills(
 	user_id: UUID,
@@ -38,3 +39,78 @@ def get_skills(
 		})
 
 	return result
+
+
+def create_skill(
+	payload: SkillCreateRequest,
+	user_id: UUID,
+	skill_repo: ISkillRepository,
+	skill_activity_repo: ISkillActivityRepository
+):
+	pass
+
+
+def delete_skill_by_id(
+	skill_id: UUID,
+	user_id: UUID,
+	skill_repo: ISkillRepository,
+):
+	pass
+
+
+def update_skill_by_id(
+	payload: SkillUpdateRequest,
+	user_id: UUID,
+	skill_repo: ISkillRepository,
+	skill_activity_repo: ISkillActivityRepository
+):
+	pass
+
+
+def get_skill_by_id(
+	skill_id: UUID,
+	user_id: UUID,
+	skill_repo: ISkillRepository,
+	skill_activity_repo: ISkillActivityRepository
+):
+	pass
+
+
+def create_skill_activity(
+	skill_id: UUID,
+	user_id: UUID,
+	skill_repo: ISkillRepository,
+	skill_activity_repo: ISkillActivityRepository
+):
+	pass
+
+
+def get_skill_activity_by_id(
+	skill_id: UUID,
+	activity_id: UUID,
+	user_id: UUID,
+	skill_repo: ISkillRepository,
+	skill_activity_repo: ISkillActivityRepository
+):
+	pass
+
+
+def delete_skill_activity_by_id(
+	skill_id: UUID,
+	activity_id: UUID,
+	user_id: UUID,
+	skill_activity_repo: ISkillActivityRepository
+):
+	pass
+
+
+def update_skill_activity_by_id(
+	skill_id: UUID,
+	activity_id: UUID,
+	user_id: UUID,
+	skill_repo: ISkillRepository,
+	skill_activity_repo: ISkillActivityRepository
+):
+	pass
+
+
