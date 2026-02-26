@@ -30,6 +30,7 @@ class SkillActivityRepository(ISkillActivityRepository):
 		payload: SkillActivityCreateRequest
 	) -> Union[SkillActivity, None]:
 		skill_activity_data = SkillActivity(
+			skill_id,
 			**payload.model_dump()
 		)
 		self.db.add(skill_activity_data)

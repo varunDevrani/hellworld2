@@ -27,9 +27,11 @@ class SkillRepository(ISkillRepository):
 	
 	def create(
 		self,
+		user_id: UUID,
 		skill_name: str
 	) -> Union[Skill, None]:
 		skill_data = Skill(
+			user_id,
 			name=skill_name
 		)
 		

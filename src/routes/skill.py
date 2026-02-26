@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from uuid import UUID
 
 from src.dependencies.database import get_db
-from src.schemas.skill import SkillCreateRequest, SkillUpdateRequest
+from src.schemas.skill import SkillActivityCreateRequest, SkillCreateRequest, SkillUpdateRequest
 from src.dependencies.auth import get_current_user
 import src.controllers.skill as controllers
 
@@ -102,6 +102,7 @@ def create_skill_activity(
 	request: Request,
 	response: Response,
 	skill_id: UUID,
+	payload: SkillActivityCreateRequest,
 	db: Session = Depends(get_db),
 	user_id: UUID = Depends(get_current_user)
 ) -> JSONResponse:
@@ -109,6 +110,7 @@ def create_skill_activity(
 		request,
 		response,
 		skill_id,
+		payload,
 		db,
 		user_id
 	)

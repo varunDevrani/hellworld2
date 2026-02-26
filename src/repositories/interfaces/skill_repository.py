@@ -18,6 +18,7 @@ class ISkillRepository(ABC):
 	@abstractmethod
 	def create(
 		self,
+		user_id: UUID,
 		skill_name: str
 	) -> Union[Skill, None]:
 		raise NotImplementedError
