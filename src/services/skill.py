@@ -11,21 +11,6 @@ def get_skills(
 	skill_repo: ISkillRepository,
 	skill_activity_repo: ISkillActivityRepository
 ) -> List[Dict[str, Any]]:
-	
-	if user_id is None:
-		raise DomainException(
-			401,
-			ErrorCode.AUTHENTICATION_ERROR,
-			"Invalid Token",
-			ErrorDetail(
-				resource="skills",
-				field_violations=[
-					FieldViolation(
-						field="token[user_id]"
-					)
-				]
-			)
-		)
 
 	result = []
 	skills_data = skill_repo.find_all_by_user_id(user_id)

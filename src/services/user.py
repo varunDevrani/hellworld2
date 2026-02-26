@@ -18,20 +18,6 @@ def get_user_by_id(
     user_id: UUID,
     user_repo: IUserRepository
 ) -> User:
-	if not user_id:
-		raise DomainException(
-			401,
-			ErrorCode.NOT_FOUND_ERROR,
-			"user_id not found",
-			ErrorDetail(
-				resource="users",
-				field_violations=[
-					FieldViolation(
-						field="user_id"
-					)
-				]
-			)
-		)
 					
 	user_data = user_repo.find_by_id(user_id)
 	if not user_data:
@@ -57,21 +43,6 @@ def update_user_by_id(
 	user_id: UUID,
 	user_repo: IUserRepository
 ) -> User:
-	
-	if user_id is None:
-		raise DomainException(
-			401,
-			ErrorCode.AUTHENTICATION_ERROR,
-			"Invalid Token",
-			ErrorDetail(
-				resource="skills",
-				field_violations=[
-					FieldViolation(
-						field="token[user_id]"
-					)
-				]
-			)
-		)
 		
 	user_data = user_repo.update_by_id(user_id, payload)
 	if user_data is None:
