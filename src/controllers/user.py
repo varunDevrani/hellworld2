@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from src.schemas.user import UserResponse, UserUpdateRequest
 from src.repositories.user_repository import UserRepository
-from src.exceptions import AuthenticationError, NotFoundError
+from src.schemas.api_response import SuccessResponse
 import src.services.user as services
 
 
@@ -21,15 +21,12 @@ def get_users(
     	user_repo
     )
 
-    response.status_code = 200
-    return JSONResponse(
+    return SuccessResponse(
 		status_code=200,
-		content={
-			"success": True,
-			"data": {
-			    "total_users": len(users_data),
-				"users": [UserResponse.model_validate(data).model_dump(mode="json") for data in users_data]
-			}
+		message="Users fetched successfully.",
+		data={
+			"total_users": len(users_data),
+			"users": [UserResponse.model_validate(data).model_dump(mode="json") for data in users_data]
 		}
 	)
 
@@ -43,38 +40,18 @@ def get_user_by_id(
 	
 	user_repo = UserRepository(db)
 	
-	try:
-		user_data = services.get_user_by_id(
-			user_id,
-			user_repo
-		)
-		
-		response.status_code = 200
-		return JSONResponse(
-			status_code=200,
-			content={
-				"success": True,
-				"content": {
-					"user": UserResponse.model_validate(user_data).model_dump(mode="json")
-				}
-			}
-		)
-	except NotFoundError as exception:
-		response.status_code = 404
-		return JSONResponse(
-			status_code=404,
-			content={
-				"success": False,
-				"content": {
-					"code": "AUTHENTICATION_ERROR",
-					"message": exception.message,
-					"details": {
-						"field": "user_id"
-					}
-				}
-			}
-		)
-
+	user_data = services.get_user_by_id(
+		user_id,
+		user_repo
+	)
+	
+	return SuccessResponse(
+		status_code=200,
+		message=f"User with {user_id} fetched successfully.",
+		data={
+			"user": UserResponse.model_validate(user_data).model_dump(mode="json")
+		}
+	)
 
 def update_user_by_id(
 	request: Request,
@@ -85,37 +62,21 @@ def update_user_by_id(
 ) -> JSONResponse:
 	
 	user_repo = UserRepository(db)
+
+	user_data = services.update_user_by_id(
+		payload,
+		user_id,
+		user_repo
+	)
 	
-	try:
-		user_data = services.update_user_by_id(
-			payload,
-			user_id,
-			user_repo
-		)
-		
-		response.status_code = 200
-		return JSONResponse(
-			status_code=200,
-			content={
-				"success": True,
-				"data": {
-					"user": UserResponse.model_validate(user_data).model_dump(mode="json")
-				}
+	response.status_code = 200
+	return JSONResponse(
+		status_code=200,
+		content={
+			"success": True,
+			"data": {
+				"user": UserResponse.model_validate(user_data).model_dump(mode="json")
 			}
-		)
-		
-	except AuthenticationError as exception:
-		response.status_code = 401
-		return JSONResponse(
-			status_code=401,
-			content={
-				"success": False,
-				"content": {
-					"code": "AUTHENTICATION_ERROR",
-					"message": exception.message,
-					"details": {
-						"field": "user_id"
-					}
-				}
-			}
-		)
+		}
+	)
+

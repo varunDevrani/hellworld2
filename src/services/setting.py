@@ -2,7 +2,7 @@ from uuid import UUID
 
 from src.models.setting import Setting
 from src.repositories.interfaces.setting_repository import ISettingRepository
-from src.exceptions import AuthenticationError, NotFoundError
+from src.exceptions import DomainException, ErrorCode, ErrorDetail, FieldViolation
 from src.schemas.setting import SettingsUpdateRequest
 
 
@@ -13,11 +13,35 @@ def get_settings(
 ) -> Setting:
 	
 	if user_id is None:
-		raise AuthenticationError("invalid token")
+		raise DomainException(
+			401,
+			ErrorCode.AUTHENTICATION_ERROR,
+			"Invalid Token",
+			ErrorDetail(
+				resource="settings",
+				field_violations=[
+					FieldViolation(
+						field="token[user_id]"
+					)
+				]
+			)
+		)
 		
 	setting_data = setting_repo.find_by_user_id(user_id)
 	if setting_data is None:
-		raise NotFoundError("settings[user_id]")
+		raise DomainException(
+			404,
+			ErrorCode.NOT_FOUND_ERROR,
+			"settings not found",
+			ErrorDetail(
+				resource="settings",
+				field_violations=[
+					FieldViolation(
+						field="settings"
+					)
+				]
+			)
+		)
 		
 	return setting_data
 	
@@ -30,11 +54,35 @@ def update_settings(
 ) -> Setting:
 	
 	if user_id is None:
-		return AuthenticationError("invalid token")
+		raise DomainException(
+			401,
+			ErrorCode.AUTHENTICATION_ERROR,
+			"Invalid Token",
+			ErrorDetail(
+				resource="settings",
+				field_violations=[
+					FieldViolation(
+						field="token[user_id]"
+					)
+				]
+			)
+		)
 
 	setting_data = setting_repo.update_by_user_id(user_id, payload)
 	if setting_data is None:
-		raise NotFoundError("settings[user_id]")
+		raise DomainException(
+			404,
+			ErrorCode.NOT_FOUND_ERROR,
+			"user_id not found",
+			ErrorDetail(
+				resource="settings",
+				field_violations=[
+					FieldViolation(
+						field="settings"
+					)
+				]
+			)
+		)
 		
 	return setting_data
 
