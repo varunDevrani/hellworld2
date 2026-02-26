@@ -29,7 +29,7 @@ def signup(
 		status_code=201,
 		message="user created. please log in",
 		data={
-			"user": UserResponse.model_validate(user_data)
+			"user": UserResponse.model_validate(user_data).model_dump(mode="json")
 		}
 	)
 

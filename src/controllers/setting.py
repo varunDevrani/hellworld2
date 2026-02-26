@@ -8,11 +8,12 @@ from src.schemas.setting import (
 	SettingsUpdateRequest
 )
 from src.repositories.setting_repository import SettingRepository
+from src.schemas.api_response import SuccessResponse
 import src.services.setting as services
 
 
 def get_settings(
-	request: Request,
+	request: Request, 
 	response: Response,
 	db: Session,
 	user_id: UUID
@@ -26,13 +27,11 @@ def get_settings(
 	)
 	
 	response.status_code = 200
-	return JSONResponse(
+	return SuccessResponse(
 		status_code=200,
-		content={
-			"success": True,
-			"data": {
-				"settings": SettingsResponse.model_validate(setting_data).model_dump(mode="json")
-			}
+		message="Settings[user_id] fetched successfully.",
+		data={
+			"settings": SettingsResponse.model_validate(setting_data).model_dump(mode="json")
 		}
 	)
 
@@ -54,12 +53,11 @@ def update_settings(
 	)
 	
 	response.status_code = 200
-	return JSONResponse(
+	return SuccessResponse(
 		status_code=200,
-		content={
-			"success": True,
-			"data": {
-				"settings": SettingsResponse.model_validate(setting_data).model_dump(mode="json")
-			}
+		message="Settings[user_id] updated successfully.",
+		data={
+			"settings": SettingsResponse.model_validate(setting_data).model_dump(mode="json")
 		}
-	)
+	)	
+	

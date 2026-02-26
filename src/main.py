@@ -23,20 +23,20 @@ def shutdown():
 	print("App Shutting Down...")
 	engine.dispose()
 
-@app.exception_handler(HTTPException)
-def http_exception_handler(
-	request: Request,
-	exception: HTTPException
-):
-	return JSONResponse(
-        status_code=exception.status_code,
-        content={
-			"success": False,
-            "errors": {
-				"detail": exception.detail
-			}
-        }
-    )
+# @app.exception_handler(HTTPException)
+# def http_exception_handler(
+# 	request: Request,
+# 	exception: HTTPException
+# ):
+# 	return JSONResponse(
+#         status_code=exception.status_code,
+#         content={
+# 			"success": False,
+#             "errors": {
+# 				"detail": exception.detail
+# 			}
+#         }
+#     )
 
 register_exception_handlers(app)
 

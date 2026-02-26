@@ -5,6 +5,8 @@ from sqlalchemy.orm import Session
 
 from src.repositories.skill_repository import SkillRepository
 from src.repositories.skill_activity_repository import SkillActivityRepository
+from src.schemas.api_response import SuccessResponse
+from src.schemas.skill import SkillsResponse
 import src.services.skill as services
 
 
@@ -25,13 +27,14 @@ def get_skills(
 	)
 
 	response.status_code = 200
-	return JSONResponse(
+	return SuccessResponse(
 		status_code=200,
-		content={
-			"success": True,
-			"data": {
+		message="Skills[user_id] fetched successfully.",
+		data={
+			"skills": SkillsResponse.model_validate({
+				"total_skills": len(all_skills_data),
 				"skills": all_skills_data
-			}
+			}).model_dump(mode="json")
 		}
 	)
 
