@@ -39,7 +39,7 @@ def create_token(
         case JWTToken.ACCESS_TOKEN:
             expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
         case JWTToken.REFRESH_TOKEN:
-            expire = datetime.now(timezone.utc) + timedelta(minutes=REFRESH_TOKEN_EXPIRE_DAYS)
+            expire = datetime.now(timezone.utc) + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
         case JWTToken.OTP_TOKEN:
             expire = datetime.now(timezone.utc) + timedelta(minutes=OTP_CODE_EXPIRE_MINUTES)
         case _:
