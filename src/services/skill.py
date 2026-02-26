@@ -20,7 +20,7 @@ def get_skills(
 		result.append({
 			"id": skill.id,
 			"skill_name": skill.name,
-			"activities": skill_activity_repo.find_activities_by_skill_id(skill.id)
+			"activities": skill_activity_repo.find_all_by_skill_id(skill.id)
 		})
 
 	return result
