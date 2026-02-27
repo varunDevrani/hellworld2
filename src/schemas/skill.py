@@ -31,6 +31,7 @@ class SkillActivityUpdateRequest(BaseModel):
 class SkillResponse(BaseModel):
     id: UUID
     name: str
+    is_completed: bool
     total_activites: int
     activities: Union[List[SKillActivityResponse], None] = None
 
@@ -40,6 +41,7 @@ class SkillCreateRequest(BaseModel):
     
 class SkillUpdateRequest(BaseModel):
     name: Union[str, None] = None
+    is_completed: Union[bool, None] = None
     activities: Union[List[SkillActivityUpdateRequest], None] = None
 
 class SkillsResponse(BaseModel):

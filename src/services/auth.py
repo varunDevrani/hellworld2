@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 from typing import Dict, Any
 from uuid import UUID
 
@@ -74,7 +75,7 @@ def login(
 		)
 	
 	refresh_token_data = refresh_token_repo.find_by_used_id(user_data.id)
-	if refresh_token_data is not None:
+	if refresh_token_data is not None and refresh_token_data.expires_at > datetime.now(timezone.utc):
 		raise DomainException(
 			409,
 			ErrorCode.CONFLICT_ERROR,

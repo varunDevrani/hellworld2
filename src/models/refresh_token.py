@@ -1,7 +1,7 @@
 import uuid
 
 from datetime import datetime, timezone
-from sqlalchemy import UUID, ForeignKey
+from sqlalchemy import UUID, ForeignKey, DateTime
 from sqlalchemy.orm import Mapped, mapped_column
 
 from src.database.base import Base
@@ -23,7 +23,9 @@ class RefreshToken(Base):
 
 	issued_at: Mapped[datetime] = mapped_column()
 
-	expires_at: Mapped[datetime] = mapped_column()
+	expires_at: Mapped[datetime] = mapped_column(
+		DateTime(timezone=True)
+	)
 
 	created_at: Mapped[datetime] = mapped_column(
 		default=lambda: datetime.now(timezone.utc)
